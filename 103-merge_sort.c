@@ -1,59 +1,59 @@
 #include "sort.h"
 
-void merge_subs(int *subarr, int *buff, size_t front, size_t mid,
+void merge_subs(int *mini_array, int *sorted_array, size_t front, size_t mid,
 		size_t back);
-void merge_sort_foreach(int *subarr, int *buff, size_t front, size_t back);
+void merge_sort_foreach(int *mini_array, int *sorted_array, size_t front, size_t back);
 void merge_sort(int *array, size_t size);
 
 /**
- * merge_subs - Sort a subarray of integers.
- * @subarr: A subarray of an array of integers to sort.
- * @buff: A buffer to store the sorted subarray.
+ * merge_subs - Sort a mini_arrayay of integers.
+ * @mini_array: A mini_arrayay of an array of integers to sort.
+ * @sorted_array: A sorted_arrayer to store the sorted array.
  * @front: The front index of the array.
  * @mid: The middle index of the array.
  * @back: The back index of the array.
  */
-void merge_subs(int *subarr, int *buff, size_t front, size_t mid,
+void merge_subs(int *mini_array, int *sorted_array, size_t front, size_t mid,
 		size_t back)
 {
 	size_t i, j, k = 0;
 
 	printf("Merging...\n[left]: ");
-	print_array(subarr + front, mid - front);
+	print_array(mini_array + front, mid - front);
 
 	printf("[right]: ");
-	print_array(subarr + mid, back - mid);
+	print_array(mini_array + mid, back - mid);
 
 	for (i = front, j = mid; i < mid && j < back; k++)
-		buff[k] = (subarr[i] < subarr[j]) ? subarr[i++] : subarr[j++];
+		sorted_array[k] = (mini_array[i] < mini_array[j]) ? mini_array[i++] : mini_array[j++];
 	for (; i < mid; i++)
-		buff[k++] = subarr[i];
+		sorted_array[k++] = mini_array[i];
 	for (; j < back; j++)
-		buff[k++] = subarr[j];
+		sorted_array[k++] = mini_array[j];
 	for (i = front, k = 0; i < back; i++)
-		subarr[i] = buff[k++];
+		mini_array[i] = sorted_array[k++];
 
 	printf("[Done]: ");
-	print_array(subarr + front, back - front);
+	print_array(mini_array + front, back - front);
 }
 
 /**
  * merge_sort_foreach - Implement the merge sort algorithm through recursion.
- * @subarr: A subarray of an array of integers to sort.
- * @buff: A buffer to store the sorted result.
- * @front: The front index of the subarray.
- * @back: The back index of the subarray.
+ * @mini_array: A mini_array of an array of integers to sort.
+ * @sorted_array: A sorted_array buffer to store the sorted result.
+ * @front:front index of the array.
+ * @back: back index of the array.
  */
-void merge_sort_foreach(int *subarr, int *buff, size_t front, size_t back)
+void merge_sort_foreach(int *mini_array, int *sorted_array, size_t front, size_t back)
 {
 	size_t mid;
 
 	if (back - front > 1)
 	{
 		mid = front + (back - front) / 2;
-		merge_sort_foreach(subarr, buff, front, mid);
-		merge_sort_foreach(subarr, buff, mid, back);
-		merge_subs(subarr, buff, front, mid, back);
+		merge_sort_foreach(mini_array, sorted_array, front, mid);
+		merge_sort_foreach(mini_array, sorted_array, mid, back);
+		merge_subs(mini_array, sorted_array, front, mid, back);
 	}
 }
 
@@ -67,16 +67,16 @@ void merge_sort_foreach(int *subarr, int *buff, size_t front, size_t back)
  */
 void merge_sort(int *array, size_t size)
 {
-	int *buff;
+	int *sorted_array;
 
 	if (array == NULL || size < 2)
 		return;
 
-	buff = malloc(sizeof(int) * size);
-	if (buff == NULL)
+	sorted_array = malloc(sizeof(int) * size);
+	if (sorted_array == NULL)
 		return;
 
-	merge_sort_foreach(array, buff, 0, size);
+	merge_sort_foreach(array, sorted_array, 0, size);
 
-	free(buff);
+	free(sorted_array);
 }
