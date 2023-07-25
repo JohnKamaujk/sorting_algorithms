@@ -2,7 +2,8 @@
 
 void merge_subs(int *mini_array, int *sorted_array, size_t front, size_t mid,
 		size_t back);
-void merge_sort_foreach(int *mini_array, int *sorted_array, size_t front, size_t back);
+void merge_sort_foreach(int *mini_array, int *sorted_array, size_t front,
+		size_t back);
 void merge_sort(int *array, size_t size);
 
 /**
@@ -25,7 +26,8 @@ void merge_subs(int *mini_array, int *sorted_array, size_t front, size_t mid,
 	print_array(mini_array + mid, back - mid);
 
 	for (i = front, j = mid; i < mid && j < back; k++)
-		sorted_array[k] = (mini_array[i] < mini_array[j]) ? mini_array[i++] : mini_array[j++];
+		sorted_array[k] = (mini_array[i] < mini_array[j]) ? mini_array[i++]
+		 : mini_array[j++];
 	for (; i < mid; i++)
 		sorted_array[k++] = mini_array[i];
 	for (; j < back; j++)
@@ -44,7 +46,8 @@ void merge_subs(int *mini_array, int *sorted_array, size_t front, size_t mid,
  * @front:front index of the array.
  * @back: back index of the array.
  */
-void merge_sort_foreach(int *mini_array, int *sorted_array, size_t front, size_t back)
+void merge_sort_foreach(int *mini_array, int *sorted_array, size_t front,
+	 size_t back)
 {
 	size_t mid;
 
